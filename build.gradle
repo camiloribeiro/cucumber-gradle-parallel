@@ -58,17 +58,19 @@ def runCucumberTests(testProperties, tag) {
 
     GParsPool.withPool(10) {
         features.eachParallel { File file ->
-            return exec {
+            exec {
                 executable "sh"
-                args "-c", "java ${testProperties} " +
+                args "-c", "mkdir -p ${reporting.baseDir}/cucumber" +
+                        "&& java ${testProperties} " +
                         "-cp ${sourceSets.main.runtimeClasspath.asPath} " +
                         "cucumber.api.cli.Main " +
                         "--glue classpath:com.camiloribeiro " +
                         "${project.projectDir}/src/main/java/com/camiloribeiro/features/${file.name} " +
-                        "--plugin pretty > ${reporting.baseDir}/cucumber/${file.name}.log  " +
                         "--plugin json:${reporting.baseDir}/cucumber/${file.name}.json " +
+                        "--plugin pretty > ${reporting.baseDir}/cucumber/${file.name}.log " +
                         "--tags ${tag}"
             }
+            println("${file.name}: Scenario output: ${reporting.baseDir}/cucumber/${file.name}.log ")
         }
     }
     generateReport()
@@ -112,4 +114,5 @@ def generateReport() {
             false
     );
     reportBuilder.generateReports();
+    println("\nReport available on: ${reporting.baseDir}/cucumber/feature-overview.html")
 }
