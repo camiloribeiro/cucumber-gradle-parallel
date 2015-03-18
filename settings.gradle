@@ -1,2 +1,1 @@
-rootProject.name = 'cucumber-jvm-concurrent'
-
+rootProject.name = 'cucumber-gradle-parallel'
