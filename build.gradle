@@ -1,0 +1,105 @@
+import groovyx.gpars.GParsPool
+import net.masterthought.cucumber.ReportBuilder
+
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+
+buildscript {
+    repositories {
+        maven {
+            url "http://repo.bodar.com"
+        }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.codehaus.gpars:gpars:1.2.1",
+                "net.masterthought:cucumber-reporting:0.0.24"
+    }
+}
+
+repositories {
+    maven {
+        url "http://repo.bodar.com"
+    }
+    mavenCentral()
+
+}
+
+ext.cukesVersion = '1.2.2'
+
+dependencies {
+
+    compile group: 'net.masterthought', name: 'cucumber-reporting', version: "0.0.24"
+    compile group: 'com.googlecode.totallylazy', name: 'totallylazy', version: '1.20'
+
+    compile group: 'info.cukes', name: 'cucumber-junit', version: "$cukesVersion"
+    compile group: 'info.cukes', name: 'cucumber-core', version: "$cukesVersion"
+    compile group: 'info.cukes', name: 'cucumber-java', version: "$cukesVersion"
+
+    compile(
+            "org.codehaus.groovy:groovy-all:2.2.0"
+    )
+
+    compile files("$buildDir/classes/main")
+}
+
+task runInParallel {
+    doLast {
+
+        def testProperties = "-DsomePropertie=somePropertie"
+        runCucumberTests(testProperties, "~@pending")
+    }
+}
+
+
+def runCucumberTests(testProperties, tag) {
+    def features = fileTree(dir: "${project.projectDir}/src/main/java/com/camiloribeiro/features/").include '**/*.feature'
+
+    GParsPool.withPool(10) {
+        features.eachParallel { File file ->
+            return exec {
+                executable "sh"
+                args "-c", "java ${testProperties} " +
+                        "-cp ${sourceSets.main.runtimeClasspath.asPath} " +
+                        "cucumber.api.cli.Main " +
+                        "--glue classpath:com.camiloribeiro " +
+                        "${project.projectDir}/src/main/java/com/camiloribeiro/features/${file.name} " +
+                        "--plugin pretty > ${reporting.baseDir}/cucumber/${file.name}.log  " +
+                        "--plugin json:${reporting.baseDir}/cucumber/${file.name}.json " +
+                        "--tags ${tag}"
+            }
+        }
+    }
+    generateReport()
+}
+
+def generateReport() {
+
+    def jsonReports = fileTree(dir: "${reporting.baseDir}/cucumber/").include '**/*.json'.toString()
+
+    File reportOutputDirectory = new File("${reporting.baseDir}/cucumber");
+
+    List<String> jsonReportFiles = new ArrayList<String>();
+    jsonReports.each { File file ->
+        jsonReportFiles.add("${reporting.baseDir}/cucumber/${file.name}".toString());
+    }
+    ReportBuilder reportBuilder = new ReportBuilder(
+            jsonReportFiles,
+            reportOutputDirectory,
+            "",
+            "95",
+            "cucumber-jvm",
+            false,
+            false,
+            true,
+            false,
+            false,
+            "",
+            true,
+            false
+    );
+    reportBuilder.generateReports();
+}
