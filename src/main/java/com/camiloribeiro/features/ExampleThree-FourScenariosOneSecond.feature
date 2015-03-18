@@ -4,22 +4,22 @@ Feature: This just contains four scenarios that sleeps for one second each
   It is not meant to do anything, but sleep
   So we can prove that it runs in parallel
 
-  Scenario: Example 1 that sleep 1 seconds
+  Scenario: Example 1 that sleep 1 seconds - three
     Given I have the this useless scenario
     When I sleep for 1 seconds
     Then It should finnish
 
-  Scenario: Example 2 that sleep 1 seconds
+  Scenario: Example 2 that sleep 1 seconds - three
     Given I have the this useless scenario
     When I sleep for 1 seconds
     Then It should finnish
 
-  Scenario: Example 2 that sleep 1 seconds
+  Scenario: Example 2 that sleep 1 seconds - three
     Given I have the this useless scenario
     When I sleep for 1 seconds
     Then It should finnish
 
-  Scenario: Example 2 that sleep 1 seconds
+  Scenario: Example 2 that sleep 1 seconds - three
     Given I have the this useless scenario
     When I sleep for 1 seconds
     Then It should finnish

@@ -4,7 +4,7 @@ Feature: This just contains one scenario that sleeps for two seconds
   It is not meant to do anything, but sleep
   So we can prove that it runs in parallel
 
-  Scenario: Example sleep 5 seconds
+  Scenario: Example sleep 5 seconds - three
     Given I have the this useless scenario
     When I sleep for 2 seconds
     Then It should finnish
