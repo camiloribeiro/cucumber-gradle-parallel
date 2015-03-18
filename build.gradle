@@ -48,12 +48,10 @@ dependencies {
 
 task runInParallel {
     doLast {
-
         def testProperties = "-DsomePropertie=somePropertie"
         runCucumberTests(testProperties, "~@pending")
     }
 }
-
 
 def runCucumberTests(testProperties, tag) {
     def features = fileTree(dir: "${project.projectDir}/src/main/java/com/camiloribeiro/features/").include '**/*.feature'
@@ -76,10 +74,22 @@ def runCucumberTests(testProperties, tag) {
     generateReport()
 }
 
+task runInSequence() {
+    doLast {
+        def arglist = ["-p", "pretty", "-p", "json:${reporting.baseDir}/cucumber/cucumber.json", "--glue", "com.camiloribeiro",
+                       "${project.projectDir}/src/main/java/com/camiloribeiro/features"]
+
+        return javaexec {
+            main = "cucumber.api.cli.Main"
+            classpath = sourceSets.main.runtimeClasspath
+            args = arglist
+        }
+        generateReport()
+    }
+}
+
 def generateReport() {
-
     def jsonReports = fileTree(dir: "${reporting.baseDir}/cucumber/").include '**/*.json'.toString()
-
     File reportOutputDirectory = new File("${reporting.baseDir}/cucumber");
 
     List<String> jsonReportFiles = new ArrayList<String>();
