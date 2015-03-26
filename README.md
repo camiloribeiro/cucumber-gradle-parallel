@@ -5,7 +5,7 @@ This is just an example of cucumber jvm running several features in parallel on 
 
 In this example you will find:
 
-    - 9 Feature files being running simultaneously in different threads and different jvms
+    - 9 Feature files running simultaneously in different threads and different jvms
     - A cucumber report being generated on top of all results at the end of the test
     
 The current example run over 47 seconds of testing in a bit more than 5 seconds. It also generates a report in another couple of seconds. 
