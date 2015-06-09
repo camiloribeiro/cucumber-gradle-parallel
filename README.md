@@ -22,6 +22,26 @@ The report used is:
 
 Besides the basic configuration, it is not very useful :)
 
+Try it
+========
+
+Make sure you have java installed and gradle https://gradle.org/
+
+Clone the repository:
+
+    $ git clone git@github.com:camiloribeiro/cucumber-gradle-parallel.git
+
+Run in sequence, the usual way:
+
+    $ gradle clean build runInSequence
+
+Check the total time in the output. Now, run it in parallel:
+
+    $ gradle clean build runInParallel
+
+Check the report in the output. 
+Add a file:// + output in your browser, example file:///Users/camilo/cucumber-gradle-parallel/build/reports/cucumber/feature-overview.html
+
 Have fun.
 
 LICENSE
