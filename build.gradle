@@ -16,7 +16,7 @@ buildscript {
 
     dependencies {
         classpath "org.codehaus.gpars:gpars:1.2.1",
-                "net.masterthought:cucumber-reporting:0.0.24"
+                "net.masterthought:cucumber-reporting:0.3.1"
     }
 }
 
@@ -28,16 +28,16 @@ repositories {
 
 }
 
-ext.cukesVersion = '1.2.2'
+ext.cukesVersion = '1.2.4'
 
 dependencies {
 
-    compile group: 'net.masterthought', name: 'cucumber-reporting', version: "0.0.24"
+    compile group: 'net.masterthought', name: 'cucumber-reporting', version: "0.3.1"
     compile group: 'com.googlecode.totallylazy', name: 'totallylazy', version: '1.20'
 
     compile group: 'info.cukes', name: 'cucumber-junit', version: "$cukesVersion"
     compile group: 'info.cukes', name: 'cucumber-core', version: "$cukesVersion"
-    compile group: 'info.cukes', name: 'cucumber-java', version: "$cukesVersion"
+    compile group: 'info.cukes', name: 'cucumber-java8', version: "$cukesVersion"
 
     compile(
             "org.codehaus.groovy:groovy-all:2.2.0"
@@ -99,19 +99,21 @@ def generateReport() {
         jsonReportFiles.add("${reporting.baseDir}/cucumber/${file.name}".toString());
     }
     ReportBuilder reportBuilder = new ReportBuilder(
-            jsonReportFiles,
-            reportOutputDirectory,
-            "",
-            "95",
-            "cucumber-jvm",
-            false,
-            false,
-            true,
-            false,
-            false,
-            "",
-            true,
-            false
+                                    jsonReportFiles,              // List<String> jsonReports,
+                                    reportOutputDirectory,        // File reportDirectory
+                                    "",                           // String pluginUrlPath
+                                    "1988",                       // String buildNumber
+                                    "cucumber-gradle-parallel",   // String buildProject,
+                                    false,                        // boolean skippedFails,
+                                    false,                        // boolean pendingFails,
+                                    true,                         // boolean undefinedFails,
+                                    false,                        // boolean missingFails
+                                    false,                        // boolean flashCharts,
+                                    true,                         // boolean runWithJenkins,
+                                    false,                        // boolean artifactsEnabled,
+                                    "",                           // String artifactConfig
+                                    true,                         // boolean highCharts
+                                    true                          // boolean parallelTesting
     );
     reportBuilder.generateReports();
     println("\nReport available on: ${reporting.baseDir}/cucumber/feature-overview.html")
