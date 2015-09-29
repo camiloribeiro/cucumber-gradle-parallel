@@ -16,7 +16,7 @@ buildscript {
 
     dependencies {
         classpath "org.codehaus.gpars:gpars:1.2.1",
-                "net.masterthought:cucumber-reporting:0.3.1"
+                "net.masterthought:cucumber-reporting:0.4.0"
     }
 }
 
@@ -32,7 +32,7 @@ ext.cukesVersion = '1.2.4'
 
 dependencies {
 
-    compile group: 'net.masterthought', name: 'cucumber-reporting', version: "0.3.1"
+    compile group: 'net.masterthought', name: 'cucumber-reporting', version: "0.4.0"
     compile group: 'com.googlecode.totallylazy', name: 'totallylazy', version: '1.20'
 
     compile group: 'info.cukes', name: 'cucumber-junit', version: "$cukesVersion"
