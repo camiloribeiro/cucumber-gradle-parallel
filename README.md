@@ -47,7 +47,7 @@ Have fun.
 LICENSE
 =======
 
-Copyright 2015 Camilo Ribeiro camilo@camiloribeiro.com
+Copyright 2015 - 2016 Camilo Ribeiro camilo@camiloribeiro.com
 
 This file is part of Cucumber-gradle.parallel.
 
