@@ -33,7 +33,7 @@ ext.cukesVersion = '1.2.4'
 dependencies {
 
     compile group: 'net.masterthought', name: 'cucumber-reporting', version: "0.4.0"
-    compile group: 'com.googlecode.totallylazy', name: 'totallylazy', version: '1.20'
+    compile group: 'com.googlecode.totallylazy', name: 'totallylazy', version: '1.85'
 
     compile group: 'info.cukes', name: 'cucumber-junit', version: "$cukesVersion"
     compile group: 'info.cukes', name: 'cucumber-core', version: "$cukesVersion"
