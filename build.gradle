@@ -1,5 +1,7 @@
 import groovyx.gpars.GParsPool
 import net.masterthought.cucumber.ReportBuilder
+import net.masterthought.cucumber.Configuration
+import net.masterthought.cucumber.Reportable
 apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'idea'
@@ -15,7 +17,7 @@ buildscript {
 
     dependencies {
         classpath "org.codehaus.gpars:gpars:1.2.1",
-                "net.masterthought:cucumber-reporting:0.4.0"
+                "net.masterthought:cucumber-reporting:3.3.0"
     }
 }
 
@@ -31,7 +33,7 @@ ext.cukesVersion = '1.2.5'
 
 dependencies {
 
-    compile group: 'net.masterthought', name: 'cucumber-reporting', version: "0.4.0"
+    compile group: 'net.masterthought', name: 'cucumber-reporting', version: "3.3.0"
     compile group: 'com.googlecode.totallylazy', name: 'totallylazy', version: '1.85'
 
     compile group: 'info.cukes', name: 'cucumber-junit', version: "$cukesVersion"
@@ -97,23 +99,14 @@ def generateReport() {
     jsonReports.each { File file ->
         jsonReportFiles.add("${reporting.baseDir}/cucumber/${file.name}".toString());
     }
-    ReportBuilder reportBuilder = new ReportBuilder(
-                                    jsonReportFiles,              // List<String> jsonReports,
-                                    reportOutputDirectory,        // File reportDirectory
-                                    "",                           // String pluginUrlPath
-                                    "1988",                       // String buildNumber
-                                    "cucumber-gradle-parallel",   // String buildProject,
-                                    false,                        // boolean skippedFails,
-                                    false,                        // boolean pendingFails,
-                                    true,                         // boolean undefinedFails,
-                                    false,                        // boolean missingFails
-                                    false,                        // boolean flashCharts,
-                                    true,                         // boolean runWithJenkins,
-                                    false,                        // boolean artifactsEnabled,
-                                    "",                           // String artifactConfig
-                                    true,                         // boolean highCharts
-                                    true                          // boolean parallelTesting
-    );
-    reportBuilder.generateReports();
-    println("\nReport available on: ${reporting.baseDir}/cucumber/feature-overview.html")
+
+    Configuration configuration = new Configuration(reportOutputDirectory, "cucumber-gradle-parallel");
+    // optional configuration
+    configuration.setParallelTesting(true);
+    configuration.setRunWithJenkins(false);
+    configuration.setBuildNumber("1988");
+
+    ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration);
+    Reportable result = reportBuilder.generateReports();
+    println("\nReport available on: ${reporting.baseDir}/cucumber/cucumber-html-reports/overview-features.html")
 }
