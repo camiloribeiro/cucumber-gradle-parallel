@@ -1,6 +1,8 @@
 Cucumber Gradle Parallel Example
 ===============================
 
+![alt tag](https://raw.githubusercontent.com/camiloribeiro/cucumber-gradle-parallel/master/cucumber.png))
+
 This is just an example of cucumber jvm running several features in parallel on gradle. 
 
 In this example you will find:
