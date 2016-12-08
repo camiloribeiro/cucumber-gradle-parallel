@@ -27,7 +27,7 @@ repositories {
 
 }
 
-ext.cukesVersion = '1.2.4'
+ext.cukesVersion = '1.2.5'
 
 dependencies {
 
