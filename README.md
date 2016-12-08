@@ -40,7 +40,7 @@ Check the total time in the output. Now, run it in parallel:
     $ gradle clean build runInParallel
 
 Check the report in the output. 
-Add a file:// + output in your browser, example file:///Users/camilo/cucumber-gradle-parallel/build/reports/cucumber/feature-overview.html
+Add a file:// + output in your browser, example file:///Users/camilo/cucumber-gradle-parallel/build/reports/cucumber/cucumber-html-reports/overview-features.html
 
 Have fun.
 
