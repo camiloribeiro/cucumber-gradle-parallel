@@ -5,6 +5,9 @@ Cucumber Gradle Parallel Example
 
 This is just an example of cucumber jvm running several features in parallel on gradle. 
 
+This project adheres to the Contributor Covenant [code of conduct](CODE_OF_CONDUCT.md).
+By participating, you are expected to uphold this code.
+
 In this example you will find:
 
     - 9 Feature files running simultaneously in different threads and different jvms
