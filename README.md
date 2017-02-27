@@ -1,6 +1,8 @@
 Cucumber Gradle Parallel Example
 ===============================
 
+[![Build Status](https://travis-ci.org/camiloribeiro/cucumber-gradle-parallel.svg?branch=master)](https://travis-ci.org/camiloribeiro/cucumber-gradle-parallel)
+
 ![alt tag](https://raw.githubusercontent.com/camiloribeiro/cucumber-gradle-parallel/master/cucumber.png)
 
 This is just an example of cucumber jvm running several features in parallel on gradle. 
