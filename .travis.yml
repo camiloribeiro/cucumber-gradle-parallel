@@ -1,4 +1,4 @@
 language: groovy
 jdk:
   - oraclejdk8
-script: ./gradlew runInParallel
+script: gradle clean build runInParallel
